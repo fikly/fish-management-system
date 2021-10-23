@@ -1,0 +1,68 @@
+@import "../../../assets/scss/webkit";
+
+.main-layout{
+    height: 100vh;
+    overflow: hidden;
+    .main-content{
+        width: 85vw;
+    }
+    .header-layout{
+        width: 100%;
+        padding: 12px 16px;
+        .search-form{
+            background-color: var(--white-background-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            width: 30%;
+            .form-control{
+                border: none;
+                box-shadow: none;
+                outline: none;
+                padding: 0px;
+                font-size: 14px;
+                &::placeholder{
+                    color: var(--greyLight-text-color);
+                }
+            }
+        }
+    }
+    .sidebar-layout{
+        width: 15vw;
+        height: 100vh;
+        .logo-content{
+            height: 150px;
+            background-color: var(--sidebar-logo-background-color);
+            img{
+                width: 70%;
+            }
+        }
+        .sidebar-menu{
+            padding: 0px;
+            margin: 32px 0px;
+            li{
+                padding: 16px;
+                list-style: none;
+                cursor: pointer;
+                @extend .transition05s;
+                span{
+                    height: 28px;
+                }
+                &:last-child{
+                    margin-bottom: 0px;
+                }
+                &:hover, &.active{
+                    background-color: var(--sidebar-logo-background-color);
+                }
+            }
+        }
+    }
+    .main-container{
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+    }
+    @media(max-width: 1024px){
+        .sidebar-layout{
+            display: none;
+        }
+    }
+}
