@@ -1,12 +1,13 @@
 $defaultPrimary : #28b796;
+$defaultSecondary : #395661;
+$defaultSecondaryDark : #274653;
 $defaultWhite : #ffffff;
 $defaultBlack : #333333;
 $errorColor : #bd362f;
 $successColor : #55ca92;
+$greyColor : #9292A0;
 $greyLightColor : #d4d4f0;
 $defaultBackground : #EFEFEF;
-$sidebarBackground : #395661;
-$sidebarLogoBackground : #274653;
 
 
 :root{
@@ -15,6 +16,7 @@ $sidebarLogoBackground : #274653;
     --white-text-color: #{$defaultWhite};
     --error-text-color: #{$errorColor};
     --black-text-color: #{$defaultBlack};
+    --grey-text-color: #{$greyColor};
     --greyLight-text-color: #{$greyLightColor};
     //end color text
 
@@ -22,8 +24,8 @@ $sidebarLogoBackground : #274653;
     --default-background-color : #{$defaultBackground};
     --white-background-color : #{$defaultWhite};
     --primary-background-color : #{$defaultPrimary};
-    --sidebar-background-color : #{$sidebarBackground};
-    --sidebar-logo-background-color : #{$sidebarLogoBackground};
+    --secondary-background-color : #{$defaultSecondary};
+    --secondary-dark-background-color : #{$defaultSecondaryDark};
     --success-background-color : #{$successColor};
     //end background color
 

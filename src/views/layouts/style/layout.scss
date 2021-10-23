@@ -27,11 +27,10 @@
         }
     }
     .sidebar-layout{
-        width: 15vw;
+        width: 20vw;
         height: 100vh;
         .logo-content{
             height: 150px;
-            background-color: var(--sidebar-logo-background-color);
             img{
                 width: 70%;
             }
@@ -44,6 +43,7 @@
                 list-style: none;
                 cursor: pointer;
                 @extend .transition05s;
+                color: var(--grey-text-color);
                 span{
                     height: 28px;
                 }
@@ -51,7 +51,7 @@
                     margin-bottom: 0px;
                 }
                 &:hover, &.active{
-                    background-color: var(--sidebar-logo-background-color);
+                    color: var(--primary-text-color);
                 }
             }
         }

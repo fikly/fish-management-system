@@ -1,5 +1,6 @@
 import React, {Fragment, Suspense} from 'react';
 import {Helmet} from 'react-helmet';
+import Notifications from 'react-notify-toast';
 import Loading from '~/views/components/loading/Loading';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -16,6 +17,7 @@ const MainLayout = ({Container, title}) => {
                 <Loading />
             }>
                 <div className="main-layout d-flex">
+                    <Notifications />
                     <Sidebar />
                     <div className="main-content">
                         <Header title={title} />

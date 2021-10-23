@@ -2,7 +2,10 @@
 .color-black{color: var(--black-text-color)}
 .color-white{color: var(--white-text-color) !important}
 .color-error{color: var(--error-text-color) !important}
+.color-grey{color: var(--grey-text-color) !important}
 .color-greyLight{color: var(--greyLight-text-color) !important}
 
 .background-primary{background-color: var(--primary-background-color)}
-.background-sidebar{background-color: var(--sidebar-background-color)}
+.background-secondary{background-color: var(--secondary-background-color)}
+.background-secondary-dark{background-color: var(--secondary-dark-background-color)}
+.background-white{background-color: var(--white-background-color)}

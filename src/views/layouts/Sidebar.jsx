@@ -13,14 +13,14 @@ const Sidebar = () => {
     const {menuList} = general;
 
     return (
-        <div className="sidebar-layout background-sidebar">
-            <div className="logo-content d-flex justify-content-center align-items-center">
+        <div className="sidebar-layout background-white">
+            <div className="logo-content d-flex justify-content-center align-items-center background-primary">
                 <img src={logoImg} alt={LOGO_ALT} />
             </div>
             <ul className="sidebar-menu">
                 {menuList.map((menu, i) => {
                     return (
-                        <li onClick={() => history.push(menu.url)} key={i} className={`d-flex align-items-center color-white font-18 font-500 ${menu.url === location.pathname ? 'active' : ''}`}>
+                        <li onClick={() => history.push(menu.url)} key={i} className={`d-flex align-items-center font-18 font-400 ${menu.url === location.pathname ? 'active' : ''}`}>
                             <span className="mr-20p"><menu.icon /></span> {menu.title}
                         </li>
                     );

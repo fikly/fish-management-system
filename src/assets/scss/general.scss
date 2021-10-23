@@ -74,14 +74,25 @@ body{background-color: var(--default-background-color);}
 // end pagination
 
 // Toast
-.Toastify__toast{
-    @extend .font-14;
-    min-height: 50px !important;
-    &.Toastify__toast--success{
-        background: var(--success-background-color);
+.toast-notification{
+    width: 96% !important;
+    text-align: right !important;
+    top: 30px !important;
+    span{
+        border-radius: 5px !important;
     }
-    .Toastify__toast-body{
-        margin: 6px 0px;
+}
+
+.custom-btn{
+    border: none;
+    opacity: 0.8;
+    @extend .transition05s;
+    &.primary-btn{
+        background-color: var(--primary-background-color);
+        @extend .color-white;
+    }
+    &:hover{
+        opacity: 1;
     }
 }
 
