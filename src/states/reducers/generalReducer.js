@@ -1,5 +1,6 @@
+import produce from 'immer';
 import {BiBookContent, BiHome} from 'react-icons/bi';
-import {GET_MENU_LIST} from '../actions/generalAction';
+import {TOGGLE_MENU} from '../actions/generalAction';
 
 const initialState = {
     menuList: [
@@ -14,12 +15,15 @@ const initialState = {
             url: '/',
         },
     ],
+    showMenu: false,
 };
-export default (state = initialState, action) => {
+const generalReducer = produce((state = initialState, action) => {
     switch (action.type) {
-    case GET_MENU_LIST:
-        return state.menuList;
+    case TOGGLE_MENU:
+        state.showMenu = !state.showMenu;
     default:
         return state;
     }
-};
+});
+
+export default generalReducer;
