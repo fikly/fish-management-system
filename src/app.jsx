@@ -17,9 +17,9 @@ const App = () =>{
             <Provider store={configureStore()}>
                 <BrowserRouter>
                     <Switch>
-                        {routes.map(({path, exact, container, title}, i ) => (
+                        {routes.map(({path, exact, container, title, searchAction}, i ) => (
                             <Route key={i} path={path} exact={exact} render={ () => (
-                                <MainLayout Container={container} title={title} />
+                                <MainLayout Container={container} title={title} searchAction={searchAction} />
                             )}/>
                         ))}
                         <Route render={()=><Page404/>}/>

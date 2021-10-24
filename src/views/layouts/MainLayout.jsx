@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 
 import './style/layout.scss';
 
-const MainLayout = ({Container, title}) => {
+const MainLayout = ({Container, title, searchAction}) => {
     return (
         <Fragment>
             <Helmet>
@@ -20,7 +20,7 @@ const MainLayout = ({Container, title}) => {
                     <Notifications />
                     <Sidebar />
                     <div className="main-content">
-                        <Header title={title} />
+                        <Header title={title} searchAction={searchAction} />
                         <div className="main-container">
                             <Container />
                         </div>

@@ -23,16 +23,14 @@ const Homepage = () => {
     }, []);
 
     return (
-        <div className="p-3">
-            <div className="row">
-                {list.map((row, i) => {
-                    return (
-                        <div className="col-lg-6" key={i}>
-                            <SingleContent data={row} />
-                        </div>
-                    );
-                })}
-            </div>
+        <div className="row">
+            {list.map((row, i) => {
+                return (
+                    <div className="col-lg-6" key={i}>
+                        <SingleContent data={row} />
+                    </div>
+                );
+            })}
         </div>
     );
 };
