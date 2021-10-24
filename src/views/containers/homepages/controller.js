@@ -3,7 +3,7 @@ import {notify} from 'react-notify-toast';
 import {v4 as uuidv4} from 'uuid';
 import {HARGA, KOMODITAS, KOTA, PROVINSI, UKURAN} from '~/constants/variable';
 
-const {GetOptionArea, GetOptionSize, GetListAPI, PostListAPI} = require('~/services/serviceApi');
+const {GetOptionArea, GetOptionSize, GetListAPI, PostListAPI, PutListAPI} = require('~/services/serviceApi');
 const {apiService} = require('~/services/serviceGeneral');
 const {optionObject} = require('~/utils/optionObject');
 
@@ -75,4 +75,42 @@ export const submitForm = async (params) => {
     }
 
     return result;
+};
+
+export const updateForm = async (params, id) => {
+    const result = {
+        status: false,
+    };
+    try {
+        const data = {
+            komoditas: params[KOMODITAS],
+            area_provinsi: params[PROVINSI].value,
+            area_kota: params[KOTA].value,
+            size: params[UKURAN].value,
+            price: params[HARGA],
+            tgl_parsed: moment().format(),
+            timestamp: moment().unix(),
+        };
+
+        await apiService(PutListAPI, {
+            search: {uuid: id},
+            set: data,
+        });
+        notify.show('Success update content', 'success');
+        result.status = true;
+    } catch (error) {
+        result.status = false;
+        notify.show('On Error on update content', 'error');
+    }
+
+    return result;
+};
+
+export const setDefaultValueSchema = (schema, content) => {
+    schema[KOMODITAS].defaultValue = (content !== '' ? content.komoditas : content);
+    schema[PROVINSI].defaultValue = (content !== '' ? content.area_provinsi : content);
+    schema[KOTA].defaultValue = (content !== '' ? content.area_kota : content);
+    schema[UKURAN].defaultValue = (content !== '' ? content.size : content);
+    schema[HARGA].defaultValue = (content !== '' ? content.price : content);
+    return schema;
 };
