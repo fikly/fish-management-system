@@ -1,7 +1,7 @@
 import React, {Fragment, Suspense} from 'react';
 import {Helmet} from 'react-helmet';
 import Notifications from 'react-notify-toast';
-import Loading from '~/views/components/loading/Loading';
+import Loading from '~/views/components/loading';
 import Header from './Header';
 import Sidebar from './Sidebar';
 

@@ -1,6 +1,7 @@
 @import "../../../../assets/scss/colors";
 
 .single-content{
+    position: relative;
     .icon{
         height: 50px;
         width: 50px;
@@ -10,5 +11,10 @@
             font-size: var(--font-size-20);
             color: var(--primary-text-color);
         }
+    }
+    .action-content{
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
     }
 }

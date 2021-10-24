@@ -1,4 +1,5 @@
 @import "../../../assets/scss/webkit";
+@import "../../../assets/scss/const";
 
 .main-layout{
     height: 100vh;
@@ -68,7 +69,7 @@
             }
         }
     }
-    @media(max-width: 1024px){
+    @media(max-width: $resolution-medium){
         flex-direction: column;
         .main-content{
             width: 100%;
@@ -80,6 +81,9 @@
                     margin-left: 16px;
                 }
             }
+            .main-container{
+                height: calc(100vh - 167px);
+            }
         }
         .sidebar-layout{
             width: 100%;
@@ -89,7 +93,8 @@
                 height: 60px;
                 padding-right: 16px;
                 img{
-                    width: 40%;
+                    height: 60px;
+                    width: auto;
                 }
                 .mobile-menu{
                     display: block;

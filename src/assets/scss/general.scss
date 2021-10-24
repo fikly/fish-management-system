@@ -45,34 +45,6 @@ body{background-color: var(--default-background-color);}
         opacity: 0;
     }
 }
-
-// begin pagination
-.pagination{
-    @media(max-width: 1024px){
-        margin-bottom: 30px;
-    }
-    ul{
-        li{
-            list-style: none;
-            &:first-child{
-                margin-right: 4px; 
-            }
-            &:last-child{
-                margin-left: 4px;
-            }
-            @media(max-width: 1024px){
-                &:first-child{
-                    margin-right: 0px; 
-                }
-                &:last-child{
-                    margin-left: 0px;
-                }
-            }
-        }
-    }
-}
-// end pagination
-
 // Toast
 .toast-notification{
     width: 96% !important;
@@ -88,6 +60,7 @@ body{background-color: var(--default-background-color);}
     opacity: 0.8;
     border-radius: 8px;
     @extend .transition05s;
+    font-size: 14px;
     &.primary-btn{
         background-color: var(--primary-background-color);
         @extend .color-white;
@@ -95,6 +68,24 @@ body{background-color: var(--default-background-color);}
     &:hover{
         opacity: 1;
     }
+    @media(max-width: $resolution-very-small){
+        font-size: 12px;
+    }
+}
+
+.btn-success{
+    width: 100%;
+    background-color: var(--primary-background-color) !important;
+    @extend .custom-btn;
+    @extend .primary-btn;
+}
+
+.form-control{
+    box-shadow: none !important;
+}
+
+.col-form-label{
+    text-transform: capitalize;
 }
 
 .custom-card{
