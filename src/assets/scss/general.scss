@@ -61,9 +61,16 @@ body{background-color: var(--default-background-color);}
     border-radius: 8px;
     @extend .transition05s;
     font-size: 14px;
+    &.default-btn{
+        background-color: var(--default-background-color);
+    }
     &.primary-btn{
         background-color: var(--primary-background-color);
         @extend .color-white;
+    }
+    &.danger-btn{
+        @extend .color-white;
+        background-color: var(--error-background-color);
     }
     &:hover{
         opacity: 1;

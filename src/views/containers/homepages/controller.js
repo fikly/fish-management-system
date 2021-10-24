@@ -3,7 +3,7 @@ import {notify} from 'react-notify-toast';
 import {v4 as uuidv4} from 'uuid';
 import {HARGA, KOMODITAS, KOTA, PROVINSI, UKURAN} from '~/constants/variable';
 
-const {GetOptionArea, GetOptionSize, GetListAPI, PostListAPI, PutListAPI} = require('~/services/serviceApi');
+const {GetOptionArea, GetOptionSize, GetListAPI, PostListAPI, PutListAPI, DeleteListAPI} = require('~/services/serviceApi');
 const {apiService} = require('~/services/serviceGeneral');
 const {optionObject} = require('~/utils/optionObject');
 
@@ -101,6 +101,24 @@ export const updateForm = async (params, id) => {
     } catch (error) {
         result.status = false;
         notify.show('On Error on update content', 'error');
+    }
+
+    return result;
+};
+
+export const deleteForm = async (id) => {
+    const result = {
+        status: false,
+    };
+    try {
+        await apiService(DeleteListAPI, {
+            search: {uuid: id},
+        });
+        notify.show('Success delete content', 'success');
+        result.status = true;
+    } catch (error) {
+        result.status = false;
+        notify.show('On Error on delete content', 'error');
     }
 
     return result;

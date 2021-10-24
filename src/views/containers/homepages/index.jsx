@@ -6,9 +6,12 @@ import {SET_LIST} from '~/states/actions/contentAction';
 import {SET_MODAL_STATUS} from '~/states/actions/generalAction';
 import SingleContent from '~/views/components/content';
 import Modal from '~/views/components/modal';
+import Button from '~/views/components/button';
 
 import './style/homepages.scss';
-import {dataForSchema, getList, setDefaultValueSchema, submitForm, updateForm} from './controller';
+import {dataForSchema, deleteForm, getList, setDefaultValueSchema, submitForm, updateForm} from './controller';
+import Loading from '~/views/components/loading';
+import {KOMODITAS} from '~/constants/variable';
 
 const Homepage = () => {
     const dispatch = useDispatch();
@@ -16,6 +19,8 @@ const Homepage = () => {
     const {list} = content;
     const [schema, setSchema] = useState(contentSchema);
     const [onEdit, setOnEdit] = useState('');
+    const [onDelete, setOnDelete] = useState('');
+    const [onLoadList, setOnLoadList] = useState(false);
     const [onLoadSchema, setOnLoadSchema] = useState(false);
     const [onLoadSubmit, setOnLoadSubmit] = useState(false);
 
@@ -26,7 +31,9 @@ const Homepage = () => {
     };
 
     const setList = async () =>{
+        setOnLoadList(false);
         const list = await getList();
+        setOnLoadList(true);
         dispatch({type: SET_LIST, data: list.filter((row) => row.uuid)});
     };
 
@@ -53,6 +60,28 @@ const Homepage = () => {
         }
     };
 
+    const deleteContent = async (index) => {
+        const content = list[index];
+        setOnDelete(content);
+        dispatch({type: SET_MODAL_STATUS, data: true});
+    };
+
+    const submitDeleteContent = async () =>{
+        setOnLoadSubmit(true);
+        const submit = await deleteForm(onDelete.uuid);
+        if (submit.status) {
+            setOnDelete('');
+            setList();
+            dispatch({type: SET_MODAL_STATUS, data: false});
+        }
+        setOnLoadSubmit(false);
+    };
+
+    const resetDeleteContent = () => {
+        setOnDelete('');
+        dispatch({type: SET_MODAL_STATUS, data: false});
+    };
+
     useEffect(() => {
         getDataForSchema();
         setList();
@@ -61,23 +90,43 @@ const Homepage = () => {
     const ModalBodyContent = () => {
         return (
             <Fragment>
-                {onLoadSchema &&
+                {(onDelete === '' && onLoadSchema) &&
                 <JsonToForm model={schema} onSubmit={onSubmitForm} />}
+                {onDelete &&
+                <div className="d-flex flex-column align-items-center">
+                    <h5 className="mb-32p">Are you sure you want to delete <b>{onDelete[KOMODITAS]}</b> ?</h5>
+                    <div className="d-flex">
+                        <Button type="default" label="No" action={() => resetDeleteContent()} className="mr-8p" />
+                        <Button type="danger" label="Yes" action={() => submitDeleteContent()} />
+                    </div>
+                </div>}
             </Fragment>
         );
     };
 
     return (
         <Fragment>
-            <div className="row">
-                {list.map((row, i) => {
-                    return (
-                        <div className="col-lg-6" key={i}>
-                            <SingleContent data={row} editContent={editContent} index={i} />
+            {!onLoadList ? (
+                <Loading />
+            ) : (
+                <Fragment>
+                    {(list.length) > 0 ? (
+                        <div className="row">
+                            {list.map((row, i) => {
+                                return (
+                                    <div className="col-lg-6" key={i}>
+                                        <SingleContent data={row} editContent={editContent} deleteContent={deleteContent} index={i} />
+                                    </div>
+                                );
+                            })}
                         </div>
-                    );
-                })}
-            </div>
+                    ) : (
+                        <div className="h-100 d-flex flex-column justify-content-center align-items-center">
+                            <h5 className="font-400 font-24">Empty List</h5>
+                        </div>
+                    )}
+                </Fragment>
+            )}
             <Modal title="Manage Content" Container={ModalBodyContent} onLoad={onLoadSubmit} />
         </Fragment>
     );

@@ -6,7 +6,7 @@ import {formatRupiah} from '~/utils/formatRupiah';
 
 import './style/singleContent.scss';
 
-const SingleContent = ({data, editContent, index}) => {
+const SingleContent = ({data, editContent, deleteContent, index}) => {
     return (
         <div className="single-content custom-card mb-20p d-flex align-items-center">
             <Fragment>
@@ -21,7 +21,7 @@ const SingleContent = ({data, editContent, index}) => {
                 </div>
                 <div className="action-content d-flex font-20">
                     <BiEdit title="Edit" className="mr-16p cursor-pointer color-primary" onClick={() => editContent(index)} />
-                    <BiTrashAlt title="Delete" className="cursor-pointer color-error" onClick={() => setShowModal(true)} />
+                    <BiTrashAlt title="Delete" className="cursor-pointer color-error" onClick={() => deleteContent(index)} />
                 </div>
             </Fragment>
         </div>

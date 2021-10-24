@@ -31,6 +31,9 @@
             height: calc(100vh - 56px);
             overflow-y: auto;
             padding: 16px;
+            .loading-general{
+                height: 100% !important;
+            }
         }
     }
     .sidebar-layout{
