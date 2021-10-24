@@ -86,6 +86,7 @@ body{background-color: var(--default-background-color);}
 .custom-btn{
     border: none;
     opacity: 0.8;
+    border-radius: 8px;
     @extend .transition05s;
     &.primary-btn{
         background-color: var(--primary-background-color);
@@ -93,6 +94,16 @@ body{background-color: var(--default-background-color);}
     }
     &:hover{
         opacity: 1;
+    }
+}
+
+.custom-card{
+    background-color: var(--white-background-color);
+    padding: 16px;
+    border-radius: 8px;
+    @extend .transition05s;
+    &:hover{
+        @extend .with-shadow;
     }
 }
 

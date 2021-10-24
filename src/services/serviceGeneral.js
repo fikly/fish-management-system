@@ -1,16 +1,14 @@
-import axios from 'axios';
+const {API_URL} = require('~/constants/variable');
+const SteinStore = require('stein-js-client');
 
-export const apiService = async ({endpoint, data}) => {
+const store = new SteinStore(API_URL);
+
+export const apiService = async (endpoint, data) => {
     let result= [];
-    const {baseURL, method, url} = endpoint;
+    const {method, url} = endpoint;
 
-    await axios({
-        baseURL,
-        method,
-        url,
-        data,
-    }).then(function(response) {
-        result = response.data;
+    await store[method](url, data).then((response) => {
+        result = response;
     }).catch(function(error) {
         result = error.response;
     });

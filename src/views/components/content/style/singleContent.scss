@@ -1,0 +1,14 @@
+@import "../../../../assets/scss/colors";
+
+.single-content{
+    .icon{
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        border: 1px solid var(--primary-background-color);
+        svg{
+            font-size: var(--font-size-20);
+            color: var(--primary-text-color);
+        }
+    }
+}

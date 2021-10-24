@@ -1,17 +1,16 @@
 import produce from 'immer';
-import {GET_LIST} from '../actions/contentAction';
+import {SET_LIST} from '../actions/contentAction';
 
 const initialState = {
     list: [],
 };
-export default (state = initialState, action) => {
+const contentReducer = produce((state = initialState, action) => {
     switch (action.type) {
-    case GET_LIST:
-        const data = [];
-        return produce((state, draftState) => {
-            draftState.list = data;
-        });
+    case SET_LIST:
+        state.list = action.data;
     default:
         return state;
     }
-};
+});
+
+export default contentReducer;
