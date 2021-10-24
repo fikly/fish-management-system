@@ -1,4 +1,5 @@
-@import "../../../../assets/scss/colors";
+@import "../../../../assets/scss/webkit";
+@import "../../../../assets/scss/const";
 
 .single-content{
     position: relative;
@@ -16,5 +17,17 @@
         position: absolute;
         right: 16px;
         bottom: 16px;
+        opacity: 0;
+        @extend .transition05s;
+    }
+    &:hover{
+        .action-content{
+            opacity: 1;
+        }
+    }
+    @media(max-width: $resolution-medium){
+        .action-content{
+            opacity: 1;
+        }
     }
 }

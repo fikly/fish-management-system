@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {notify} from 'react-notify-toast';
 import {v4 as uuidv4} from 'uuid';
-import {HARGA, KOMODITAS, KOTA, PROVINSI, UKURAN} from '~/constants/variable';
+import {HARGA, KOMODITAS, KOTA, PROVINSI, UKURAN, URUTKAN} from '~/constants/variable';
 
 const {GetOptionArea, GetOptionSize, GetListAPI, PostListAPI, PutListAPI, DeleteListAPI} = require('~/services/serviceApi');
 const {apiService} = require('~/services/serviceGeneral');
@@ -38,6 +38,48 @@ export const dataForSchema = async (schema) => {
     schema[KOTA].options = optionCity;
 
     return schema;
+};
+
+export const setSchemaForFilter = (schema, value) => {
+    const filterSchema = {};
+    filterSchema[PROVINSI] = {
+        ...schema[PROVINSI],
+        'required': false,
+        'defaultValue': value[PROVINSI] ? value[PROVINSI].value : '',
+    };
+    filterSchema[KOTA] = {
+        ...schema[KOTA],
+        'required': false,
+        'defaultValue': value[KOTA] ? value[KOTA].value : '',
+    };
+    filterSchema[UKURAN] = {
+        ...schema[UKURAN],
+        'required': false,
+        'defaultValue': value[UKURAN] ? value[UKURAN].value : '',
+    };
+    filterSchema[URUTKAN] = {
+        'type': 'select',
+        'required': false,
+        'options': [
+            {value: 'komoditas-asc', label: 'Komoditas (A-Z)'},
+            {value: 'komoditas-desc', label: 'Komoditas (Z-A)'},
+            {value: 'area_provinsi-asc', label: 'Provinsi (A-Z)'},
+            {value: 'area_provinsi-desc', label: 'Provinsi (Z-A)'},
+            {value: 'area_kota-asc', label: 'Kota (A-Z)'},
+            {value: 'area_kota-desc', label: 'Kota (Z-A)'},
+            {value: 'price-asc', label: 'Harga Termurah'},
+            {value: 'price-desc', label: 'Harga Termahal'},
+            {value: 'size-asc', label: 'Ukuran Terkecil'},
+            {value: 'size-desc', label: 'Ukuran Terbesar'},
+        ],
+        'placeholder': 'Tanggal dibuat (default)',
+        'defaultValue': value[URUTKAN] ? value[URUTKAN].value : '',
+    };
+    filterSchema['Submit Filter / Sort'] = {
+        'type': 'submit',
+    };
+
+    return filterSchema;
 };
 
 export const getList = async () => {

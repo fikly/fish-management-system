@@ -10,4 +10,5 @@ export const PROVINSI = 'provinsi';
 export const KOTA = 'kota';
 export const UKURAN = 'ukuran';
 export const HARGA = 'harga';
+export const URUTKAN = 'urutkan';
 

@@ -2,31 +2,37 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import JsonToForm from 'json-reactform';
 import contentSchema from '~/schemas/contentSchema';
-import {SET_LIST} from '~/states/actions/contentAction';
+import {FILTER_LIST, SET_LIST, SET_SORT_FILTER, SORT_LIST} from '~/states/actions/contentAction';
 import {SET_MODAL_STATUS} from '~/states/actions/generalAction';
 import SingleContent from '~/views/components/content';
 import Modal from '~/views/components/modal';
 import Button from '~/views/components/button';
+import SortFilter from '~/views/components/sortFilter';
 
-import './style/homepages.scss';
-import {dataForSchema, deleteForm, getList, setDefaultValueSchema, submitForm, updateForm} from './controller';
+import {dataForSchema, deleteForm, getList, setDefaultValueSchema, setSchemaForFilter, submitForm, updateForm} from './controller';
 import Loading from '~/views/components/loading';
-import {KOMODITAS} from '~/constants/variable';
+import {KOMODITAS, URUTKAN} from '~/constants/variable';
 
 const Homepage = () => {
     const dispatch = useDispatch();
     const content = useSelector((state) => state.content);
-    const {list} = content;
+    const general = useSelector((state) => state.general);
+    const {showModal} = general;
+    const {list, sortFilter} = content;
     const [schema, setSchema] = useState(contentSchema);
+    const [filterSchema, setFilterSchema] = useState({});
     const [onEdit, setOnEdit] = useState('');
     const [onDelete, setOnDelete] = useState('');
     const [onLoadList, setOnLoadList] = useState(false);
     const [onLoadSchema, setOnLoadSchema] = useState(false);
     const [onLoadSubmit, setOnLoadSubmit] = useState(false);
+    const [onSort, setOnSort] = useState(false);
 
     const getDataForSchema = async () => {
         const newSchema = await dataForSchema(schema);
         setSchema(newSchema);
+        const filterSchema = setSchemaForFilter(newSchema, sortFilter);
+        setFilterSchema(filterSchema);
         setOnLoadSchema(true);
     };
 
@@ -82,6 +88,31 @@ const Homepage = () => {
         dispatch({type: SET_MODAL_STATUS, data: false});
     };
 
+    const onOpenSortFilter = () => {
+        const newFilterSchema = setSchemaForFilter(filterSchema, sortFilter);
+        setFilterSchema(newFilterSchema);
+        dispatch({type: SET_MODAL_STATUS, data: true});
+        setOnSort(true);
+    };
+
+    const submitSortFilter = (params) => {
+        dispatch({type: SET_MODAL_STATUS, data: false});
+        dispatch({type: SET_SORT_FILTER, data: params});
+        dispatch({type: FILTER_LIST, data: params});
+
+        if (params[URUTKAN].value) {
+            dispatch({type: SORT_LIST, data: params[URUTKAN].value});
+        }
+    };
+
+    useEffect(() => {
+        if (!showModal) {
+            setOnSort(false);
+            setOnDelete('');
+            editContent('');
+        };
+    }, [showModal]);
+
     useEffect(() => {
         getDataForSchema();
         setList();
@@ -90,7 +121,7 @@ const Homepage = () => {
     const ModalBodyContent = () => {
         return (
             <Fragment>
-                {(onDelete === '' && onLoadSchema) &&
+                {(!onSort && onDelete === '' && onLoadSchema) &&
                 <JsonToForm model={schema} onSubmit={onSubmitForm} />}
                 {onDelete &&
                 <div className="d-flex flex-column align-items-center">
@@ -100,6 +131,8 @@ const Homepage = () => {
                         <Button type="danger" label="Yes" action={() => submitDeleteContent()} />
                     </div>
                 </div>}
+                {onSort &&
+                <JsonToForm model={filterSchema} onSubmit={submitSortFilter} />}
             </Fragment>
         );
     };
@@ -125,9 +158,10 @@ const Homepage = () => {
                             <h5 className="font-400 font-24">Empty List</h5>
                         </div>
                     )}
+                    <SortFilter onClick={onOpenSortFilter} />
                 </Fragment>
             )}
-            <Modal title="Manage Content" Container={ModalBodyContent} onLoad={onLoadSubmit} />
+            <Modal title={`${onSort ? 'Filter/Sort' : 'Manage'} Content`} Container={ModalBodyContent} onLoad={onLoadSubmit} />
         </Fragment>
     );
 };
