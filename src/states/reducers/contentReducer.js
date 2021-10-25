@@ -39,7 +39,7 @@ const contentReducer = (state = initialState, action) => {
             (row.size && row.size.toLowerCase().indexOf(sizeFilter)) > -1
         ));
 
-        const sort = query[URUTKAN].value;
+        const sort = query[URUTKAN];
         if (sort) {
             const sorting = sort.split('-');
             filterList.sort(function(a, b) {
