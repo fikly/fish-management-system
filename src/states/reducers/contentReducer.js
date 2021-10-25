@@ -41,7 +41,7 @@ const contentReducer = (state = initialState, action) => {
 
         const sort = query[URUTKAN];
         if (sort) {
-            const sorting = sort.split('-');
+            const sorting = sort.value.split('-');
             filterList.sort(function(a, b) {
                 const objA = (sorting[0] === 'size' || sorting[0] === 'price') ? parseInt(a[sorting[0]]) : a[sorting[0]];
                 const objB = (sorting[0] === 'size' || sorting[0] === 'price') ? parseInt(b[sorting[0]]) : b[sorting[0]];
