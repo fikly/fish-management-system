@@ -41,6 +41,7 @@ const Homepage = () => {
         const list = await getList();
         setOnLoadList(true);
         dispatch({type: SET_LIST, data: list.filter((row) => row.uuid)});
+        dispatch({type: SET_QUERY_LIST, data: {}});
     };
 
     const onSubmitForm = async (params) => {

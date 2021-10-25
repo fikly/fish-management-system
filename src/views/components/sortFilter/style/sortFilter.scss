@@ -18,7 +18,7 @@
     cursor: pointer;
     font-size: 24px;
     color: var(--grey-text-color);
-    &:hover{
+    &:hover, &.active{
         background-color: var(--primary-background-color);
         color: var(--white-text-color);
     }
