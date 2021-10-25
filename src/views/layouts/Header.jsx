@@ -12,7 +12,7 @@ const Header = ({title, searchAction}) => {
     };
 
     const onChangeSearch = (value) => {
-        dispatch({type: searchAction, data: value});
+        dispatch({type: searchAction, data: {search: value}});
     };
 
     return (

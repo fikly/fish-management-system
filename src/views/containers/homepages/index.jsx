@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import JsonToForm from 'json-reactform';
 import contentSchema from '~/schemas/contentSchema';
-import {FILTER_LIST, SET_LIST, SET_SORT_FILTER, SORT_LIST} from '~/states/actions/contentAction';
+import {SET_LIST, SET_QUERY_LIST} from '~/states/actions/contentAction';
 import {SET_MODAL_STATUS} from '~/states/actions/generalAction';
 import SingleContent from '~/views/components/content';
 import Modal from '~/views/components/modal';
@@ -11,14 +11,14 @@ import SortFilter from '~/views/components/sortFilter';
 
 import {dataForSchema, deleteForm, getList, setDefaultValueSchema, setSchemaForFilter, submitForm, updateForm} from './controller';
 import Loading from '~/views/components/loading';
-import {KOMODITAS, URUTKAN} from '~/constants/variable';
+import {KOMODITAS} from '~/constants/variable';
 
 const Homepage = () => {
     const dispatch = useDispatch();
     const content = useSelector((state) => state.content);
     const general = useSelector((state) => state.general);
     const {showModal} = general;
-    const {list, sortFilter} = content;
+    const {list, queryList} = content;
     const [schema, setSchema] = useState(contentSchema);
     const [filterSchema, setFilterSchema] = useState({});
     const [onEdit, setOnEdit] = useState('');
@@ -31,7 +31,7 @@ const Homepage = () => {
     const getDataForSchema = async () => {
         const newSchema = await dataForSchema(schema);
         setSchema(newSchema);
-        const filterSchema = setSchemaForFilter(newSchema, sortFilter);
+        const filterSchema = setSchemaForFilter(newSchema, queryList);
         setFilterSchema(filterSchema);
         setOnLoadSchema(true);
     };
@@ -89,7 +89,7 @@ const Homepage = () => {
     };
 
     const onOpenSortFilter = () => {
-        const newFilterSchema = setSchemaForFilter(filterSchema, sortFilter);
+        const newFilterSchema = setSchemaForFilter(filterSchema, queryList);
         setFilterSchema(newFilterSchema);
         dispatch({type: SET_MODAL_STATUS, data: true});
         setOnSort(true);
@@ -97,12 +97,7 @@ const Homepage = () => {
 
     const submitSortFilter = (params) => {
         dispatch({type: SET_MODAL_STATUS, data: false});
-        dispatch({type: SET_SORT_FILTER, data: params});
-        dispatch({type: FILTER_LIST, data: params});
-
-        if (params[URUTKAN].value) {
-            dispatch({type: SORT_LIST, data: params[URUTKAN].value});
-        }
+        dispatch({type: SET_QUERY_LIST, data: params});
     };
 
     useEffect(() => {

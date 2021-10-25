@@ -11,11 +11,9 @@
     .modal-component{
         background-color: var(--white-background-color);
         border-radius: 8px;
-        height: 80vh;
         padding: 0px;
         .modal-body{
             padding-top: 2rem;
-            overflow-y: auto;
             position: relative;
             .modal-loading{
                 left: 0;
