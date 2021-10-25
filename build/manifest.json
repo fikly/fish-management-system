@@ -1,0 +1,16 @@
+{
+  "short_name": "E-ms",
+  "name": "Efishery Management System",
+  "description": "Efishery Management System",
+  "icons": [
+    {
+      "src": "favico.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#28b796",
+  "background_color": "#ffffff"
+}
